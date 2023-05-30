@@ -31,7 +31,8 @@ start-d:
 	@docker compose build app
 	@docker compose up -d
 	@docker compose exec app composer install
-	@echo "Wait on setup database" && sleep 10
+	@echo "Wait on setup database" && sleep 5
+	@docker composer exec app php bin/console doctrine:migrations:migrate
 
 quick-start-d:
 	make prepare-nginx
