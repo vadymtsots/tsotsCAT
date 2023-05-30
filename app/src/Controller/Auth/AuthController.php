@@ -48,9 +48,10 @@ class AuthController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
+        $a = $error.'helloworld';
 
         return $this->render('auth/login.html.twig', [
-            'error' => $error
+            'error' => $error,
         ]);
     }
 }
