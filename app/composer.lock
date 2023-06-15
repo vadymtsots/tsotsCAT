@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ae25d86be975a08f79c9453d2318e61",
+    "content-hash": "6173cb51ef972f3f9ac959340e49a677",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2684,16 +2684,16 @@
         },
         {
             "name": "symfony/doctrine-bridge",
-            "version": "v6.2.9",
+            "version": "v6.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/doctrine-bridge.git",
-                "reference": "4b3aeaa90d41c5527d7ba211d12102cedf06936e"
+                "reference": "db48a583e5e38e152af8a60c2677c8de76367701"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/doctrine-bridge/zipball/4b3aeaa90d41c5527d7ba211d12102cedf06936e",
-                "reference": "4b3aeaa90d41c5527d7ba211d12102cedf06936e",
+                "url": "https://api.github.com/repos/symfony/doctrine-bridge/zipball/db48a583e5e38e152af8a60c2677c8de76367701",
+                "reference": "db48a583e5e38e152af8a60c2677c8de76367701",
                 "shasum": ""
             },
             "require": {
@@ -2709,7 +2709,6 @@
                 "doctrine/dbal": "<2.13.1",
                 "doctrine/lexer": "<1.1",
                 "doctrine/orm": "<2.7.4",
-                "phpunit/phpunit": "<5.4.3",
                 "symfony/cache": "<5.4",
                 "symfony/dependency-injection": "<5.4",
                 "symfony/form": "<5.4.21|>=6,<6.2.7",
@@ -2779,7 +2778,7 @@
             "description": "Provides integration for Doctrine with various Symfony components",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/doctrine-bridge/tree/v6.2.9"
+                "source": "https://github.com/symfony/doctrine-bridge/tree/v6.2.11"
             },
             "funding": [
                 {
@@ -2795,7 +2794,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-11T16:08:35+00:00"
+            "time": "2023-05-25T13:08:43+00:00"
         },
         {
             "name": "symfony/doctrine-messenger",
@@ -6643,16 +6642,16 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v6.2.10",
+            "version": "v6.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "c02ea86844926f04247bc1f5db5f85bb53330823"
+                "reference": "14998e41b1e65e15cbe23466e5a5c2edd8ad3584"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/c02ea86844926f04247bc1f5db5f85bb53330823",
-                "reference": "c02ea86844926f04247bc1f5db5f85bb53330823",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/14998e41b1e65e15cbe23466e5a5c2edd8ad3584",
+                "reference": "14998e41b1e65e15cbe23466e5a5c2edd8ad3584",
                 "shasum": ""
             },
             "require": {
@@ -6665,7 +6664,6 @@
             "conflict": {
                 "doctrine/annotations": "<1.13",
                 "doctrine/lexer": "<1.1",
-                "phpunit/phpunit": "<5.4.3",
                 "symfony/dependency-injection": "<5.4",
                 "symfony/expression-language": "<5.4",
                 "symfony/http-kernel": "<5.4",
@@ -6731,7 +6729,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/v6.2.10"
+                "source": "https://github.com/symfony/validator/tree/v6.2.11"
             },
             "funding": [
                 {
@@ -6747,7 +6745,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-19T09:54:16+00:00"
+            "time": "2023-05-25T13:08:43+00:00"
         },
         {
             "name": "symfony/var-dumper",

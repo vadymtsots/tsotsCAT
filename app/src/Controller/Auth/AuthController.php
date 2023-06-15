@@ -23,7 +23,7 @@ class AuthController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $userService->createUser($form->getData());
 
             $this->addFlash(
