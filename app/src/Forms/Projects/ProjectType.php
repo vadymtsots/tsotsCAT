@@ -2,6 +2,7 @@
 
 namespace App\Forms\Projects;
 
+use App\Forms\Documents\DocumentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,6 +16,13 @@ class ProjectType extends AbstractType
             ->add(
                 'name',
                 TextType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'document',
+                DocumentType::class,
                 [
                     'required' => true,
                 ]
