@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 #[Route('/project', name: 'project_')]
 class ProjectController extends AbstractController
@@ -23,11 +24,31 @@ class ProjectController extends AbstractController
     ) {
     }
 
+    #[Route('/', name: 'index')]
+    public function index(): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $projects = $this->projectService->getProjectsByUser($user);
+
+        return $this->render('project/index.html.twig', [
+            'projects' => $projects,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'view', requirements: ['id' => Requirement::DIGITS])]
+    public function view(Project $project): Response
+    {
+        return $this->render('project/view.html.twig', [
+            'project' => $project
+        ]);
+    }
+
     #[Route('/create', name: 'create')]
     public function create(Request $request): Response
     {
         $createProjectForm = $this->createForm(ProjectType::class);
-
         $createProjectForm->handleRequest($request);
 
         if ($createProjectForm->isSubmitted() && $createProjectForm->isValid()) {

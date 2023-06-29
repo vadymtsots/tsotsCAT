@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <h1>{{ project.name }}</h1>
+    <p>Created: {{ project.createdAt|date('Y-m-d') }}</p>
+    <p>Documents: </p>
+        {% for document in project.documents %}
+            {{ document.file }}
+        {% endfor %}
+{% endblock %}

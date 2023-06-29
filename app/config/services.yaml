@@ -33,3 +33,6 @@ services:
     App\Services\Documents\DocumentUploader:
         arguments:
             $documentsDirectory: '%documents_directory%'
+    App\Services\FileSystem:
+        arguments:
+            $documentsDirectory: '%documents_directory%'

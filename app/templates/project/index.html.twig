@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="card-columns">
+        {% for project in projects %}
+            <p><a href="{{ path('project_view', {id: project.id}) }}">{{ project.name }}</a></p>
+        {% endfor %}
+    </div>
+{% endblock %}

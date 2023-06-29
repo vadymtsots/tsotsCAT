@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Entity\Project\Project;
 use App\Entity\Users\User;
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\Collection;
 
 class ProjectService
 {
@@ -21,5 +22,10 @@ class ProjectService
         $this->projectRepository->save($project);
 
         return $project;
+    }
+
+    public function getProjectsByUser(User $user): Collection
+    {
+        return $user->getProjects();
     }
 }
