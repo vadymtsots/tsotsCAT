@@ -5,10 +5,14 @@ namespace App\Entity\Document;
 use App\Entity\Project\Project;
 use App\Repository\Document\DocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
+#[ORM\Table(name: 'documents')]
 class Document
 {
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

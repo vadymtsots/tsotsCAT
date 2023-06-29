@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
     <p>Welcome to tsotsCAT!</p>
 {% endblock %}

@@ -21,13 +21,10 @@ class DocumentRepository extends ServiceEntityRepository
         parent::__construct($registry, Document::class);
     }
 
-    public function save(Document $entity, bool $flush = false): void
+    public function save(Document $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function remove(Document $entity, bool $flush = false): void

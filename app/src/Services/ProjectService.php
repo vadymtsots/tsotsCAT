@@ -12,12 +12,14 @@ class ProjectService
     {
     }
 
-    public function createProject(array $data, User $user): void
+    public function createProject(array $data, User $user): Project
     {
         $project = new Project();
         $project->setName($data['name']);
         $project->setUser($user);
 
         $this->projectRepository->save($project);
+
+        return $project;
     }
 }
