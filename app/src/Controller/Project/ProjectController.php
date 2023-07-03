@@ -57,7 +57,7 @@ class ProjectController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
 
-            $project = $this->projectService->createProject($data, $user);
+            $project = $this->projectService->createProject($data['name'], $user);
 
             $uploadedDocument = $this->documentUploader->upload(
                 $createProjectForm
@@ -67,7 +67,9 @@ class ProjectController extends AbstractController
 
             $this->documentService->saveDocument(
                 $uploadedDocument,
-                $project
+                $project,
+                $data['sourceLanguage'],
+                $data['targetLanguage']
             );
 
             $this->addFlash('success', 'Project created successfully');

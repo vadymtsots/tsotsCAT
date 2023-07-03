@@ -13,10 +13,10 @@ class ProjectService
     {
     }
 
-    public function createProject(array $data, User $user): Project
+    public function createProject(string $name, User $user): Project
     {
         $project = new Project();
-        $project->setName($data['name']);
+        $project->setName($name);
         $project->setUser($user);
 
         $this->projectRepository->save($project);

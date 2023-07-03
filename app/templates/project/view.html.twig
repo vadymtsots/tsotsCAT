@@ -4,6 +4,6 @@
     <p>Created: {{ project.createdAt|date('Y-m-d') }}</p>
     <p>Documents: </p>
         {% for document in project.documents %}
-            {{ document.file }}
+            <a href="{{ path('document_process', {id: document.id}) }}">{{ document.file }}</a>
         {% endfor %}
 {% endblock %}
