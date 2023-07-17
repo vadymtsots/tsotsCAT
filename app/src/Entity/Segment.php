@@ -7,6 +7,7 @@ use App\Repository\SegmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SegmentRepository::class)]
+#[ORM\Table(name: 'segments')]
 class Segment
 {
     #[ORM\Id]

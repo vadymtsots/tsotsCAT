@@ -9,6 +9,8 @@ use App\Services\Segments\SegmentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -22,6 +24,10 @@ class DocumentController extends AbstractController
         SegmentationService $segmentationService,
         SegmentService $segmentService
     ): RedirectResponse {
+        if ($document->getSegments()->count() > 0) {
+            return $this->redirectToRoute('document_index', ['id' => $document->getId()]);
+        }
+
         $fileName = $document->getFile();
         $fileContents = $documentService->getDocumentContentsByName($fileName);
 
@@ -36,6 +42,23 @@ class DocumentController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('project_view', ['id' => $document->getProject()->getId()]);
+        return $this->redirectToRoute('document_index', ['id' => $document->getId()]);
+    }
+
+    #[Route('/save-translation', name: 'save_translation')]
+    public function saveTranslations(Request $request)
+    {
+        dd($request->getContent());
+    }
+
+    #[Route('/{id}', name: 'index')]
+    public function index(Document $document): Response
+    {
+        $segments = $document->getSegments();
+
+        return $this->render('document/index.html.twig', [
+            'documentId' => $document->getId(),
+            'segments' => $segments,
+        ]);
     }
 }

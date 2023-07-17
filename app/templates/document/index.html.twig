@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+        <div class="card-body">
+            <table id="translation_table" class="table table-bordered table-fixed">
+                <thead>
+                <tr>
+                    <th class="col-3">Source</th>
+                    <th class="col-3">Target</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for segment in segments %}
+                    <tr data-segmentId="{{ segment.id }}">
+                        <td>{{ segment.sourceText }}</td>
+                        <td contenteditable="true">{{ segment.targetText }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <button id="save_document" class="btn btn-primary">
+                Save document
+            </button>
+        </div>
+    <script>
+        var button = document.getElementById("save_document");
+        var table = document.getElementById("translation_table");
+        var documentId = {{ documentId }};
+
+        button.addEventListener("click", function() {
+            var translations = saveDocument();
+
+            fetch('{{ path("document_save_translation") }}', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    documentId: documentId,
+                    translations: translations
+                })
+            }).then(function(response) {
+                if (response.ok) {
+                    alert("Document saved successfully");
+                } else {
+                    alert("Error saving document");
+                }
+            });
+        });
+
+        function saveDocument() {
+            // Initialize an empty array to store the table data
+            var data = [];
+
+            // Loop through each row of the table
+            for (var i = 1; i < table.rows.length; i++) {
+                // Get the current row
+                var row = table.rows[i];
+
+                // Initialize an empty object to store the row data
+                var rowData = {};
+                rowData["segmentId"] = row.getAttribute("data-segmentId");
+
+                // Loop through each cell of the row
+                for (var j = 0; j < row.cells.length; j++) {
+                    // Get the current cell
+                    var cell = row.cells[j];
+
+                    // Get the input element within the cell
+                    var input = cell.textContent;
+
+                    // Get the column name from the table header
+                    var columnName = table.rows[0].cells[j].innerText;
+
+                    // Add the cell value to the row data object
+                    rowData[columnName] = input;
+                }
+
+                // Add the row data to the data array
+                data.push(rowData);
+            }
+
+            return data;
+        }
+    </script>
+{% endblock %}
