@@ -31,4 +31,11 @@ class SegmentService
 
         $this->segmentRepository->save($segment);
     }
+
+    public function updateSegmentById(int $id, string $targetText): void
+    {
+        $segment = $this->segmentRepository->find($id);
+        $segment->setTargetText($targetText);
+        $this->segmentRepository->save($segment);
+    }
 }

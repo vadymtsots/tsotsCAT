@@ -4,8 +4,8 @@
             <table id="translation_table" class="table table-bordered table-fixed">
                 <thead>
                 <tr>
-                    <th class="col-3" id="source_text">Source</th>
-                    <th class="col-3" id="target_text">Target</th>
+                    <th class="col-3" id="sourceText">Source</th>
+                    <th class="col-3" id="targetText">Target</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,13 +29,12 @@
         button.addEventListener("click", function() {
             var segments = saveDocument();
 
-            fetch('{{ path("document_save_translation") }}', {
+            fetch('{{ path("document_save_translation", {document: documentId}) }}', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    documentId: documentId,
                     segments: segments
                 })
             }).then(function(response) {
