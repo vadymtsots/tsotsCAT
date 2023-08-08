@@ -1,0 +1,13 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/doc/setup.md
+fos_elastica:
+    clients:
+        default: { host: elasticsearch, port: 9200 }
+    indexes:
+        segment:
+            properties:
+                sourceText: ~
+            persistence:
+                driver: orm
+                model: App\Entity\Segment
+                listener:
+                    defer: true
