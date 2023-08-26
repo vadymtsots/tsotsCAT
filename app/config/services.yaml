@@ -30,9 +30,15 @@ services:
         calls:
             - [ setAnnotationReader, [ '@annotation_reader' ] ]
 
+    FOS\ElasticaBundle\Finder\FinderInterface: '@fos_elastica.finder.segment'
     App\Services\Documents\DocumentUploader:
         arguments:
             $documentsDirectory: '%documents_directory%'
     App\Services\FileSystem:
         arguments:
             $documentsDirectory: '%documents_directory%'
+    App\Services\ElasticSearch\ElasticSearchService:
+        tags: [ 'controller.service_arguments' ]
+        public: true
+        arguments:
+            $finder: '@fos_elastica.finder.segment'

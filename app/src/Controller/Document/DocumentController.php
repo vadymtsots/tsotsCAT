@@ -5,6 +5,7 @@ namespace App\Controller\Document;
 use App\Entity\Document\Document;
 use App\Services\Documents\DocumentService;
 use App\Services\Documents\Segmentation\SegmentationService;
+use App\Services\Elasticsearch\ElasticsearchService;
 use App\Services\Segments\SegmentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,12 +18,16 @@ use Symfony\Component\Routing\Requirement\Requirement;
 #[Route('/document', name: 'document_')]
 class DocumentController extends AbstractController
 {
+    public function __construct(private ElasticsearchService $elasticsearchService)
+    {
+    }
+
     #[Route('/process/{id}', name: 'process', requirements: ['id' => Requirement::DIGITS])]
     public function processDocument(
         Document $document,
         DocumentService $documentService,
         SegmentationService $segmentationService,
-        SegmentService $segmentService
+        SegmentService $segmentService,
     ): RedirectResponse {
         if ($document->getSegments()->count() > 0) {
             return $this->redirectToRoute('document_index', ['id' => $document->getId()]);
@@ -31,14 +36,21 @@ class DocumentController extends AbstractController
         $fileName = $document->getFile();
         $fileContents = $documentService->getDocumentContentsByName($fileName);
 
-        $textSegments = $segmentationService->getSegments($fileContents);
+        $sourceTextSegments = $segmentationService->getSegments($fileContents);
 
-        foreach ($textSegments as $segment) {
+        foreach ($sourceTextSegments as $sourceText) {
+            $segment = $this->elasticsearchService->searchSegment(
+                $sourceText
+            );
+
+            $targetText = $segment?->getTargetText();
+
             $segmentService->saveSegment(
                 $document,
-                $segment,
+                $sourceText,
                 $document->getSourceLanguage(),
-                $document->getTargetLanguage()
+                $document->getTargetLanguage(),
+                $targetText
             );
         }
 

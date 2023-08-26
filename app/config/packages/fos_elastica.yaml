@@ -4,10 +4,19 @@ fos_elastica:
         default: { host: elasticsearch, port: 9200 }
     indexes:
         segment:
-            properties:
-                sourceText: ~
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            my_analyzer:
+                                type: snowball
+                                language: English
             persistence:
                 driver: orm
                 model: App\Entity\Segment
+                provider: ~
+                finder: ~
                 listener:
                     defer: true
+            properties:
+                sourceText: { boost: 10, analyzer: my_analyzer }
