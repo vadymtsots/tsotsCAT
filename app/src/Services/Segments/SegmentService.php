@@ -3,13 +3,16 @@
 namespace App\Services\Segments;
 
 use App\Entity\Document\Document;
-use App\Entity\Segment;
+use App\Entity\Segment\Segment;
 use App\Repository\SegmentRepository;
+use App\Services\Elasticsearch\ElasticsearchService;
 
 class SegmentService
 {
-    public function __construct(private SegmentRepository $segmentRepository)
-    {
+    public function __construct(
+        private SegmentRepository $segmentRepository,
+        private ElasticsearchService $elasticsearchService
+    ) {
     }
 
     public function saveSegment(
@@ -37,5 +40,24 @@ class SegmentService
         $segment = $this->segmentRepository->find($id);
         $segment->setTargetText($targetText);
         $this->segmentRepository->save($segment);
+    }
+
+    public function processSourceTextSegmentByDocument(Document $document, array $sourceTextSegments): void
+    {
+        foreach ($sourceTextSegments as $sourceTextSegment) {
+            $segment = $this->elasticsearchService->searchSegment(
+                $sourceTextSegment
+            );
+
+            $targetText = $segment?->getTargetText();
+
+            $this->saveSegment(
+                $document,
+                $sourceTextSegment,
+                $document->getSourceLanguage(),
+                $document->getTargetLanguage(),
+                $targetText
+            );
+        }
     }
 }

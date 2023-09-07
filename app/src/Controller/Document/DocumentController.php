@@ -5,7 +5,6 @@ namespace App\Controller\Document;
 use App\Entity\Document\Document;
 use App\Services\Documents\DocumentService;
 use App\Services\Documents\Segmentation\SegmentationService;
-use App\Services\Elasticsearch\ElasticsearchService;
 use App\Services\Segments\SegmentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,10 +17,6 @@ use Symfony\Component\Routing\Requirement\Requirement;
 #[Route('/document', name: 'document_')]
 class DocumentController extends AbstractController
 {
-    public function __construct(private ElasticsearchService $elasticsearchService)
-    {
-    }
-
     #[Route('/process/{id}', name: 'process', requirements: ['id' => Requirement::DIGITS])]
     public function processDocument(
         Document $document,
@@ -36,23 +31,10 @@ class DocumentController extends AbstractController
         $fileName = $document->getFile();
         $fileContents = $documentService->getDocumentContentsByName($fileName);
 
-        $sourceTextSegments = $segmentationService->getSegments($fileContents);
-
-        foreach ($sourceTextSegments as $sourceText) {
-            $segment = $this->elasticsearchService->searchSegment(
-                $sourceText
-            );
-
-            $targetText = $segment?->getTargetText();
-
-            $segmentService->saveSegment(
-                $document,
-                $sourceText,
-                $document->getSourceLanguage(),
-                $document->getTargetLanguage(),
-                $targetText
-            );
-        }
+        $segmentService->processSourceTextSegmentByDocument(
+            $document,
+            $segmentationService->divideTextIntoSegments($fileContents)
+        );
 
         return $this->redirectToRoute('document_index', ['id' => $document->getId()]);
     }

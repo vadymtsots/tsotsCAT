@@ -3,7 +3,7 @@
 namespace App\Entity\Document;
 
 use App\Entity\Project\Project;
-use App\Entity\Segment;
+use App\Entity\Segment\Segment;
 use App\Repository\Document\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

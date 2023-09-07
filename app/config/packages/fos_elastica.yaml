@@ -13,7 +13,7 @@ fos_elastica:
                                 language: English
             persistence:
                 driver: orm
-                model: App\Entity\Segment
+                model: App\Entity\Segment\Segment
                 provider: ~
                 finder: ~
                 listener:

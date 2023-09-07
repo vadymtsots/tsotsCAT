@@ -41,7 +41,7 @@ class ProjectController extends AbstractController
     public function view(Project $project): Response
     {
         return $this->render('project/view.html.twig', [
-            'project' => $project
+            'project' => $project,
         ]);
     }
 

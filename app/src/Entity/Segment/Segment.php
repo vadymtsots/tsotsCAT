@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Segment;
 
 use App\Entity\Document\Document;
 use App\Repository\SegmentRepository;
@@ -25,10 +25,10 @@ class Segment
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $targetText = null;
 
-    #[ORM\Column(length: 2)]
+    #[ORM\Column(length: 3)]
     private ?string $sourceLanguage = null;
 
-    #[ORM\Column(length: 2)]
+    #[ORM\Column(length: 3)]
     private ?string $targetLanguage = null;
 
     public function getId(): ?int

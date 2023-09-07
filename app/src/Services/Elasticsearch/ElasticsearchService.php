@@ -2,11 +2,10 @@
 
 namespace App\Services\Elasticsearch;
 
-use App\Entity\Segment;
+use App\Entity\Segment\Segment;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\MatchQuery;
 use FOS\ElasticaBundle\Finder\FinderInterface;
-use FOS\ElasticaBundle\Finder\TransformedFinder;
 
 class ElasticsearchService
 {

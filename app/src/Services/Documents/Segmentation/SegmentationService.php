@@ -6,7 +6,7 @@ class SegmentationService
 {
     public const DEFAULT_SEPARATOR = '. ';
 
-    public function getSegments(string $text): array
+    public function divideTextIntoSegments(string $text): array
     {
         return explode(self::DEFAULT_SEPARATOR, $text);
     }
